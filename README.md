@@ -1,5 +1,5 @@
-# Cave Story Mod Loader example mod
-This is an example mod that can be compiled using Visual Studio 2022 for making dll mods for Cave Story freeware, using [Clownacy's Mod Loader](https://github.com/Clownacy/Cave-Story-Mod-Loader/releases).
+# Cave Story Triggers mod
+This adds a new type of trigger, for [Clownacy's Mod Loader](https://github.com/Clownacy/Cave-Story-Mod-Loader/releases). It is not an entity.
 
 You'll first need a copy of [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/). When you're installing it, go to the individual components tab and select the "C++ Windows XP Support for VS 2017 (v141) tools [Deprecated]".
 
