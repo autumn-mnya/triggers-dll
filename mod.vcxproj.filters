@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\\mod_loader.cpp" />
+    <ClCompile Include="src\lua\Lua_Trigger.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\Lua.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AutTriggers.cpp" />
+    <ClCompile Include="src\AutPI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\cave_story.h" />
+    <ClInclude Include="src\Main.h" />
+    <ClInclude Include="src\\mod_loader.h" />
+    <ClInclude Include="src\\mod_loader_hooks.h" />
+    <ClInclude Include="src\lua\Lua.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\Lua_Trigger.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AutPI.h" />
+    <ClInclude Include="src\AutTriggers.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="lua">
+      <UniqueIdentifier>{7fa3bc72-fa43-4929-bc36-0678ccde5ca9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

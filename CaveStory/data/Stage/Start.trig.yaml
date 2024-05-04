@@ -1,0 +1,13 @@
+Triggers:
+  1:
+    event: 16
+    flag: 0
+    x: 10
+    y: 6
+    sizeTX: 8
+    sizeTY: 9
+    sizeBX: 8
+    sizeBY: 8
+    runEvent: false
+    onFlagSet: false
+    onFlagUnset: false
