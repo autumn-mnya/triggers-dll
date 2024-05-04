@@ -12,6 +12,7 @@ struct TRIGGER
 	int y;
 	int code_event;
 	int code_flag;
+	int code_lua;
 	OTHER_RECT hit;
 	unsigned char cond;
 	bool run_tsc_event;
@@ -21,6 +22,7 @@ struct TRIGGER
 
 extern TRIGGER gTrig[MAX_TRIGGER];
 
-void RegisterTrigger(int id, int eve, int flag, int x, int y, OTHER_RECT rec, bool runEve, bool flagS, bool flagU);
+void RegisterTrigger(int id, int eve, int flag, int lu, int x, int y, OTHER_RECT rec, bool runEve, bool flagS, bool flagU);
+void ResetTriggers();
 void DeleteTrigger(int trigNum);
 void RegisterTriggerHooks();

@@ -20,10 +20,11 @@ static STAGE_TABLE* mTMT = (STAGE_TABLE*)(*(unsigned*)0x420C2F); // This is a po
 
 TRIGGER gTrig[MAX_TRIGGER];
 
-void RegisterTrigger(int id, int eve, int flag, int x, int y, OTHER_RECT rec, bool runEve, bool flagS, bool flagU)
+void RegisterTrigger(int id, int eve, int flag, int lu, int x, int y, OTHER_RECT rec, bool runEve, bool flagS, bool flagU)
 {
 	gTrig[id].code_event = eve;
 	gTrig[id].code_flag = flag;
+	gTrig[id].code_lua = lu;
 	gTrig[id].x = x * 0x10 * 0x200;
 	gTrig[id].y = y * 0x10 * 0x200;
 	// Set triggers hitbox
@@ -85,18 +86,7 @@ void LoadTriggerYaml(const char* yamlPath)
 		size.bottom = triggerNode["sizeBY"].as<int>();
 
 		// Register the trigger data!
-		RegisterTrigger(id, triggerNode["event"].as<int>(), triggerNode["flag"].as<int>(), triggerNode["x"].as<int>(), triggerNode["y"].as<int>(), size, triggerNode["runEvent"].as<bool>(), triggerNode["onFlagSet"].as<bool>(), triggerNode["onFlagUnset"].as<bool>());
-
-		/*
-		printf("ID: %d\n", id);
-		printf("Event: %d\n", triggerNode["event"].as<int>());
-		printf("x: %d\n", triggerNode["x"].as<int>());
-		printf("y: %d\n", triggerNode["y"].as<int>());
-		printf("sizeTX: %d\n", triggerNode["sizeTX"].as<int>());
-		printf("sizeTY: %d\n", triggerNode["sizeTY"].as<int>());
-		printf("sizeBX: %d\n", triggerNode["sizeBX"].as<int>());
-		printf("sizeBY: %d\n", triggerNode["sizeBY"].as<int>());
-		*/
+		RegisterTrigger(id, triggerNode["event"].as<int>(), triggerNode["flag"].as<int>(), triggerNode["luaFunc"].as<int>(), triggerNode["x"].as<int>(), triggerNode["y"].as<int>(), size, triggerNode["runEvent"].as<bool>(), triggerNode["onFlagSet"].as<bool>(), triggerNode["onFlagUnset"].as<bool>());
 	}
 }
 
@@ -144,10 +134,10 @@ void HitMyCharTrigger(void)
 		// Run lua code
 		if (!(g_GameFlags & 4) && hit != 0)
 		{
-			result = TriggerModScript(i);
+			result = TriggerModScript(gTrig[i].code_lua);
 			if (result == 0)
 			{
-				sprintf(errormsg, "Couldn't execute Act function of Trigger No. %d", i);
+				sprintf(errormsg, "Couldn't execute Act function of Trigger Func No. %d (Entity %d)", gTrig[i].code_lua, i);
 				MessageBoxA(ghWnd, errormsg, "ModScript Error", MB_OK);
 				return;
 			}
@@ -209,14 +199,14 @@ void Trigger_ActHook()
 
 void RegisterTriggerHooks()
 {
-	// all of this just to load triggers lol
+	// All of this is to load triggers in a save manner using AutPI
 	RegisterPreModeElement(Trigger_InitHook);
 	RegisterOpeningInitElement(Trigger_InitHook);
 	RegisterOpeningActionElement(Trigger_ActHook);
 	RegisterInitElement(Trigger_InitHook);
 	RegisterActionElement(Trigger_ActHook);
 	RegisterTransferStageInitElement(Trigger_TransferStageHook);
-	// RegisterActionElement(ActTrigger); // runs every frame to check if a flag has been set to kill the triggers functionality
 	RegisterActionElement(HitMyCharTrigger); // run if the player hits a trigger
-	RegisterAbovePlayerElement(DrawTriggerHitbox); // debug hitbox display
+	if (debug_trigger_hitbox_display)
+		RegisterBelowPlayerElement(DrawTriggerHitbox);
 }
