@@ -64,9 +64,9 @@ int TriggerModScript(int char_code)
 
 	if (lua_isnil(GetLuaL(), -1))
 	{
-		char trolololo[0x10];
-		sprintf(trolololo, "Act%d", char_code);
-		lua_getfield(GetLuaL(), -3, trolololo);
+		char triggerString[0x10];
+		sprintf(triggerString, "Act%d", char_code);
+		lua_getfield(GetLuaL(), -3, triggerString);
 
 		if (lua_isnil(GetLuaL(), -1))
 		{
